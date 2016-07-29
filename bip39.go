@@ -75,9 +75,9 @@ func NewMnemonic(entropy []byte) (string, error) {
 }
 
 func MnemonicToByteArray(mnemonic string) ([]byte, error) {
-	if IsMnemonicValid(mnemonic) == false {
-		return nil, fmt.Errorf("Invalid mnemonic")
-	}
+//	if IsMnemonicValid(mnemonic) == false {
+//		return nil, fmt.Errorf("Invalid mnemonic")
+//	}
 	mnemonicSlice := strings.Split(mnemonic, " ")
 
 	bitSize := len(mnemonicSlice) * 11
