@@ -1,13 +1,13 @@
 package bip39
 
 import (
-	"golang.org/x/crypto/pbkdf2"
 	"crypto/rand"
 	"crypto/sha256"
 	"crypto/sha512"
 	"encoding/binary"
 	"errors"
 	"fmt"
+	"golang.org/x/crypto/pbkdf2"
 	"math/big"
 	"strings"
 )
@@ -75,9 +75,9 @@ func NewMnemonic(entropy []byte) (string, error) {
 }
 
 func MnemonicToByteArray(mnemonic string) ([]byte, error) {
-//	if IsMnemonicValid(mnemonic) == false {
-//		return nil, fmt.Errorf("Invalid mnemonic")
-//	}
+	//	if IsMnemonicValid(mnemonic) == false {
+	//		return nil, fmt.Errorf("Invalid mnemonic")
+	//	}
 	mnemonicSlice := strings.Split(mnemonic, " ")
 
 	bitSize := len(mnemonicSlice) * 11
@@ -123,7 +123,7 @@ func MnemonicToByteArray(mnemonic string) ([]byte, error) {
 		}
 		validationHex = tmp2
 	}
-	
+
 	if len(hex) != len(validationHex) {
 		panic("[]byte len mismatch - it shouldn't happen")
 	}
