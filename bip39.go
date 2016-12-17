@@ -114,15 +114,11 @@ func MnemonicToByteArray(mnemonic string) ([]byte, error) {
 		hex = tmp
 	}
 
+	otherSize := byteSize - (byteSize % 4)
+	entropyHex = padHexToSize(entropyHex, otherSize)
+
 	validationHex := addChecksum(entropyHex)
-	if len(validationHex) != byteSize {
-		tmp2 := make([]byte, byteSize)
-		diff2 := byteSize - len(validationHex)
-		for i := 0; i < len(validationHex); i++ {
-			tmp2[i+diff2] = validationHex[i]
-		}
-		validationHex = tmp2
-	}
+	validationHex = padHexToSize(validationHex, byteSize)
 
 	if len(hex) != len(validationHex) {
 		panic("[]byte len mismatch - it shouldn't happen")
@@ -133,6 +129,18 @@ func MnemonicToByteArray(mnemonic string) ([]byte, error) {
 		}
 	}
 	return hex, nil
+}
+
+func padHexToSize(hex []byte, size int) []byte {
+	if len(hex) != size {
+		tmp2 := make([]byte, size)
+		diff2 := size - len(hex)
+		for i := 0; i < len(hex); i++ {
+			tmp2[i+diff2] = hex[i]
+		}
+		hex = tmp2
+	}
+	return hex
 }
 
 func NewSeedWithErrorChecking(mnemonic string, password string) ([]byte, error) {
